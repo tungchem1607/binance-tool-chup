@@ -3,6 +3,7 @@ const puppeteer = require("puppeteer");
 const pages = require("./pages.json");
 const schedule = require("node-schedule");
 const TelegramBot = require("node-telegram-bot-api");
+const delay = require("delay");
 var cronExpress = "0 0,15,30,45 * * * *";
 const telegram = new TelegramBot(
   "2089944036:AAGq7a5G9cyRJG8ZMTqlubSSQXi73pqI9Xk",
@@ -60,27 +61,8 @@ async function main() {
     // if (pagesize.length > 1) {
     //   await pagesize[0].close();
     // }
-    for (let i = 1; i < pagesize.length; i++) {
-      // await pagesizeI.screenshot({ path: `screenshots/BNBUSDT.jpeg` });
-      // console.log(`✅ ${pagesizeI.url()}`);
-      // console.log(`✅ ${pages[i - 1].id} - (${pages[i - 1].url})`);
-      await pagesize[i].bringToFront();
-      // capture screenshot and store it into screenshots directory.
-      await pagesize[i].screenshot({
-        path: `screenshots/${pages[i - 1]}.png`,
-      });
-      telegram.sendPhoto(-601617264, `./screenshots/${pages[i - 1]}.png`, {
-        caption: `Cặp: ${pages[i - 1]}`
-      });
-      // telegram.sendMessage(
-      //   chat.id,
-      //   "[​​​​​​​​​​​](https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/200px-Stack_Overflow_logo.svg.png) Some text here.",
-      //   { parse_mode: "markdown" }
-      // );
-      console.log(`✅ ${pages[i - 1].id} - (${pages[i - 1].url})`);
-    }
-
     schedule.scheduleJob(cronExpress, async () => {
+      let countJ = 0;
       for (let i = 1; i < pagesize.length; i++) {
         // await pagesizeI.screenshot({ path: `screenshots/BNBUSDT.jpeg` });
         // console.log(`✅ ${pagesizeI.url()}`);
@@ -93,12 +75,17 @@ async function main() {
         telegram.sendPhoto(-601617264, `./screenshots/${pages[i - 1]}.png`, {
           caption: `Cặp: ${pages[i - 1]}`
         });
+        countJ = countJ + 1;
+        if (countJ == 15){
+          await delay(1000);
+          countJ = 0
+        }
         // telegram.sendMessage(
         //   chat.id,
         //   "[​​​​​​​​​​​](https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/200px-Stack_Overflow_logo.svg.png) Some text here.",
         //   { parse_mode: "markdown" }
         // );
-        console.log(`✅ ${pages[i - 1].id} - (${pages[i - 1].url})`);
+        console.log(`✅ ${pages[i - 1]} - (${pages[i - 1]})`);
       }
     });
   } catch (err) {
