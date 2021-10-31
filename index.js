@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 const pages = require("./pages.json");
 const schedule = require("node-schedule");
 const TelegramBot = require("node-telegram-bot-api");
-var cronExpress = "0 * * * * *";
+var cronExpress = "0 0,15,30,45 * * * *";
 const telegram = new TelegramBot(
   "2089944036:AAGq7a5G9cyRJG8ZMTqlubSSQXi73pqI9Xk",
   {
@@ -25,7 +25,7 @@ async function captureScreenshot(profile) {
     // set viewport width and height
     await page.setViewport({ width: 1440, height: 1080 });
 
-    await page.goto(profile.url, {
+    await page.goto(`https://www.binance.com/en/futures/${profile}`, {
       waitUntil: ["load", "domcontentloaded", "networkidle0", "networkidle2"],
       timeout: 0,
     });
@@ -67,10 +67,10 @@ async function main() {
       await pagesize[i].bringToFront();
       // capture screenshot and store it into screenshots directory.
       await pagesize[i].screenshot({
-        path: `screenshots/${pages[i - 1].id}.png`,
+        path: `screenshots/${pages[i - 1]}.png`,
       });
-      telegram.sendPhoto(-601617264, `./screenshots/${pages[i - 1].id}.png`, {
-        caption: `Cặp: ${pages[i - 1].id}`
+      telegram.sendPhoto(-601617264, `./screenshots/${pages[i - 1]}.png`, {
+        caption: `Cặp: ${pages[i - 1]}`
       });
       // telegram.sendMessage(
       //   chat.id,
@@ -88,10 +88,10 @@ async function main() {
         await pagesize[i].bringToFront();
         // capture screenshot and store it into screenshots directory.
         await pagesize[i].screenshot({
-          path: `screenshots/${pages[i - 1].id}.png`,
+          path: `screenshots/${pages[i - 1]}.png`,
         });
-        telegram.sendPhoto(-601617264, `./screenshots/${pages[i - 1].id}.png`, {
-          caption: `Cặp: ${pages[i - 1].id}`
+        telegram.sendPhoto(-601617264, `./screenshots/${pages[i - 1]}.png`, {
+          caption: `Cặp: ${pages[i - 1]}`
         });
         // telegram.sendMessage(
         //   chat.id,
