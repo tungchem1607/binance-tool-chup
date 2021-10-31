@@ -1,0 +1,19 @@
+{
+  "name": "trade-binance",
+  "version": "1.0.0",
+  "description": "trade coin binance",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "keywords": [
+    "trade"
+  ],
+  "author": "tungnt@gviet.vn",
+  "license": "ISC",
+  "dependencies": {
+    "node-schedule": "^2.0.0",
+    "node-telegram-bot-api": "^0.54.0",
+    "puppeteer": "^10.4.0"
+  }
+}
