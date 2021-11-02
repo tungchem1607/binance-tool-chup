@@ -52,7 +52,21 @@ async function captureScreenshot(profile) {
 
 async function main() {
   try {
-    browser = await puppeteer.launch({ headless: false });
+    browser = await puppeteer.launch({
+      headless: false,
+      args: [
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+        "--disable-setuid-sandbox",
+        "--no-first-run",
+        "--no-sandbox",
+        "--no-zygote",
+        "--deterministic-fetch",
+        "--disable-features=IsolateOrigins",
+        "--disable-site-isolation-trials",
+        // '--single-process',
+      ],
+    });
 
     for (const profile of pages) {
       await captureScreenshot(profile);
@@ -73,12 +87,12 @@ async function main() {
           path: `screenshots/${pages[i - 1]}.png`,
         });
         telegram.sendPhoto(-601617264, `./screenshots/${pages[i - 1]}.png`, {
-          caption: `Cặp: ${pages[i - 1]}`
+          caption: `Cặp: ${pages[i - 1]}`,
         });
         countJ = countJ + 1;
-        if (countJ == 15){
+        if (countJ == 15) {
           await delay(1000);
-          countJ = 0
+          countJ = 0;
         }
         // telegram.sendMessage(
         //   chat.id,
