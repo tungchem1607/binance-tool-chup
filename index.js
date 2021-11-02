@@ -90,7 +90,7 @@ async function main() {
           caption: `Cặp: ${pages[i - 1]}`,
         });
         countJ = countJ + 1;
-        if (countJ == 15) {
+        if (countJ == 2) {
           await delay(1000);
           countJ = 0;
         }
