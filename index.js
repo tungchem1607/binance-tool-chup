@@ -5,8 +5,14 @@ const schedule = require("node-schedule");
 const TelegramBot = require("node-telegram-bot-api");
 const delay = require("delay");
 var cronExpress = "0 0,15,30,45 * * * *";
+
+// 2089944036:AAGq7a5G9cyRJG8ZMTqlubSSQXi73pqI9Xk - 1
+// 2046460582:AAH3epCEsxQ0zBqSSlRfKLLLthogo7iQnGk - 2
+// 2023827143:AAFR9qIuoKusApF9rCQSlEcBjCNflgoHLbs - BINANCE3
+
+
 const telegram = new TelegramBot(
-  "2089944036:AAGq7a5G9cyRJG8ZMTqlubSSQXi73pqI9Xk",
+  "2023827143:AAFR9qIuoKusApF9rCQSlEcBjCNflgoHLbs",
   {
     polling: true,
   }
